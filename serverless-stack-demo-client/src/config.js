@@ -4,13 +4,13 @@ export default {
     BUCKET: "notes-app-uploads"
   },
   apiGateway: {
-    REGION: "us-east-1",
-    URL: "https://6ehwgzgsdg.execute-api.us-east-1.amazonaws.com/prod"
+    REGION: "ap-northeast-1",
+    URL: "https://qats3wz7o3.execute-api.ap-northeast-1.amazonaws.com/prod"
   },
   cognito: {
-    REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_udmFFSb92",
-    APP_CLIENT_ID: "4hmari2sqvskrup67crkqa4rmo",
-    IDENTITY_POOL_ID: "us-east-1:ceef8ccc-0a19-4616-9067-854dc69c2d82"
+    REGION: "ap-northeast-1",
+    USER_POOL_ID: "ap-northeast-1_WC9KGEmxo",
+    APP_CLIENT_ID: "255kb99mcr612h7hc72s75sblj",
+    IDENTITY_POOL_ID: "ap-northeast-1:8fd390f4-5ee9-4c48-8c96-19074b0bb183"
   }
 };

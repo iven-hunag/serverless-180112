@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",
-    "deploy": "aws s3 sync build/ s3://notes-app-api-prod-serverlessdeploymentbucket-1su6yiwk11wiz",
+    "deploy": "aws s3 sync build/ s3://notes-app-api-prod-serverlessdeploymentbucket-1qfmya9gtvwfz",
     "postdeploy": "aws cloudfront create-invalidation --distribution-id E25WOK9OH902NR --paths /* && aws cloudfront create-invalidation --distribution-id E25WOK9OH902NR --paths /*",
     "eject": "react-scripts eject"
   }
