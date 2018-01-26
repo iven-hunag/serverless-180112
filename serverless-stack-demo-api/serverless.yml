@@ -80,6 +80,54 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  getpermission:
+    # Defines an HTTP API endpoint that calls the main function in get.js
+    # - path: url path is /notes/{id}
+    # - method: GET request
+    handler: getPermission.main
+    events:
+      - http:
+          path: permissions/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  createpermission:
+    # Defines an HTTP API endpoint that calls the main function in list.js
+    # - path: url path is /notes
+    # - method: GET request
+    handler: createPermission.main
+    events:
+      - http:
+          path: permissions
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  listpermission:
+    # Defines an HTTP API endpoint that calls the main function in list.js
+    # - path: url path is /notes
+    # - method: GET request
+    handler: listPermission.main
+    events:
+      - http:
+          path: permissions/list
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  updatepermission:
+    # Defines an HTTP API endpoint that calls the main function in update.js
+    # - path: url path is /notes/{id}
+    # - method: PUT request
+    handler: updatePermission.main
+    events:
+      - http:
+          path: permissions/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
     # - path: url path is /notes/{id}

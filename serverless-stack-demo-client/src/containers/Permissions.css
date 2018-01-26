@@ -1,0 +1,32 @@
+.Permissions .lander {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.Permissions .lander h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.Permissions .lander p {
+  color: #999;
+}
+
+.Permissions .lander div {
+  padding-top: 20px;
+}
+.Permissions .lander div a:first-child {
+  margin-right: 20px;
+}
+
+.Permissions .permission h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  overflow: hidden;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.Permissions .permission p {
+  color: #666;
+}
