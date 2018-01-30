@@ -30,9 +30,9 @@ export default class UpdatePermission extends Component {
       this.setState({
         note: results,
         content: results.content,
-        permission: results
-        //floors: results.floors,
-        //cameras: results.cameras
+        permission: results,
+        floor_checked: results.floors,
+        camera_checked: results.cameras
       });
     } catch (e) {
       alert(e);
@@ -56,6 +56,7 @@ export default class UpdatePermission extends Component {
       method: "PUT",
       body: note
     });
+    // console.log(note);
   }
 
   validateForm() {
@@ -88,7 +89,6 @@ export default class UpdatePermission extends Component {
             type="checkbox"
             onChange={this.toggleChange}
             value={checkbox_value}
-            id={checkbox_text + '_' + index}
           />
         </label>
     </div>
@@ -96,34 +96,27 @@ export default class UpdatePermission extends Component {
 
   floors = () => (
     this.state.floors.map((floor, index) => (
-      this.createCheckbox(floor, index, "floor", (this.state.permission.floors.indexOf(floor) === -1?false:true))
+      this.createCheckbox(floor, index, "floor", (this.state.floor_checked.indexOf(floor) === -1?false:true))
     ))
   )
 
+  cameras = () => (
+    this.state.cameras.map((camera, index) =>
+      this.createCheckbox(camera, index, "camera", (this.state.camera_checked.indexOf(camera) === -1?false:true))
+    )
+  )
+
   toggleChange = (event) => {
-    // this.setState({"isChecked": false});
-    /*console.log(event.target);
-    this.setState(({ isChecked }) => (
-      {
-        isChecked: !isChecked,
-      }
-    ));*/
-    console.log(event.target.checked);
-    var check_type = (event.target.id === "floor")? "floor_checked" : "camera_checked";
+    var check_type = (event.target.name === "floor")? "floor_checked" : "camera_checked";
 
     if (event.target.checked) {
-      console.log("test");
-      // event.target.checked = false;
       this.setState({[check_type]: [...this.state[check_type], parseInt(event.target.value, 10)]});
     } else {
-      // event.target.checked = true;
-      console.log("test1");
       var type = this.state[check_type];
       var index = type.indexOf(parseInt(event.target.value, 10));
       type.splice(index, 1);
       this.setState({[check_type]: type});
     }
-    console.log(this.state.floor_checked);
   }
 
   handleSubmit = async event => {
@@ -131,25 +124,27 @@ export default class UpdatePermission extends Component {
 
     event.preventDefault();
 
-    if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
+    /*if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
       alert("Please pick a file smaller than 5MB");
       return;
-    }
+    }*/
 
     this.setState({ isLoading: true });
 
     try {
-      if (this.file) {
+      /*if (this.file) {
         uploadedFilename = (await s3Upload(this.file))
           .Location;
-      }
+      }*/
 
       await this.saveNote({
         ...this.state.note,
-        content: this.state.content,
-        attachment: uploadedFilename || this.state.note.attachment
+        floors: this.state.floor_checked,
+        cameras: this.state.camera_checked
+        // content: this.state.content,
+        // attachment: uploadedFilename || this.state.note.attachment
       });
-      this.props.history.push("/");
+      // this.props.history.push("/");
     } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
@@ -187,14 +182,11 @@ export default class UpdatePermission extends Component {
               <ControlLabel>樓層</ControlLabel>
               {this.floors()}
             </FormGroup>
-            <FormGroup controlId="content">
-              <FormControl
-                onChange={this.handleChange}
-                value={this.state.content}
-                componentClass="textarea"
-              />
+            <FormGroup controlId="camera" bsSize="large">
+              <ControlLabel>camera</ControlLabel>
+              {this.cameras()}
             </FormGroup>
-            {this.state.note.attachment &&
+            {/*this.state.note.attachment &&
               <FormGroup>
                 <ControlLabel>Attachment</ControlLabel>
                 <FormControl.Static>
@@ -206,7 +198,7 @@ export default class UpdatePermission extends Component {
                     {this.formatFilename(this.state.note.attachment)}
                   </a>
                 </FormControl.Static>
-              </FormGroup>}
+              </FormGroup>*/}
             <FormGroup controlId="file">
               {!this.state.note.attachment &&
                 <ControlLabel>Attachment</ControlLabel>}
@@ -216,7 +208,7 @@ export default class UpdatePermission extends Component {
               block
               bsStyle="primary"
               bsSize="large"
-              disabled={!this.validateForm()}
+              // disabled={!this.validateForm()}
               type="submit"
               isLoading={this.state.isLoading}
               text="Save"
