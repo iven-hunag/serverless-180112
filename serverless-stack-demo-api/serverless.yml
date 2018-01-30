@@ -128,6 +128,18 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  deletepermission:
+    # Defines an HTTP API endpoint that calls the main function in delete.js
+    # - path: url path is /notes/{id}
+    # - method: DELETE request
+    handler: deletePermission.main
+    events:
+      - http:
+          path: permissions/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
     # - path: url path is /notes/{id}
